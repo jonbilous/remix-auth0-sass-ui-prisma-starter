@@ -12,7 +12,10 @@ import { useContext, useEffect } from "react";
 import { ClientStyleContext, ServerStyleContext } from "../context";
 
 const Document = withEmotionCache(
-  ({ children }: PropsWithChildren, emotionCache) => {
+  (
+    { children, colorMode }: PropsWithChildren<{ colorMode: string }>,
+    emotionCache
+  ) => {
     const serverStyleData = useContext(ServerStyleContext);
     const clientStyleData = useContext(ClientStyleContext);
 
@@ -31,7 +34,7 @@ const Document = withEmotionCache(
     }, []);
 
     return (
-      <html lang="en">
+      <html lang="en" data-theme={colorMode} style={{ colorScheme: colorMode }}>
         <head>
           <Meta />
           <Links />
@@ -43,7 +46,7 @@ const Document = withEmotionCache(
             />
           ))}
         </head>
-        <body>
+        <body className={`chakra-ui-${colorMode}`}>
           {children}
           <ScrollRestoration />
           <Scripts />

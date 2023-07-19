@@ -1,9 +1,7 @@
-import { useRouteLoaderData } from "@remix-run/react";
-import type { loader } from "~/root";
-import type { LoaderData } from "~/utils/remix";
+import { useRootLoaderData } from "./useRootLoaderData";
 
 export const useUserProfile = () => {
-  const rootData = useRouteLoaderData("root") as LoaderData<typeof loader>;
+  const { profile } = useRootLoaderData();
 
-  return rootData.profile;
+  return profile;
 };

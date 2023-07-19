@@ -1,25 +1,37 @@
-import { Button, useToast } from "@chakra-ui/react";
-import { fetchAction } from "@jonbilous/easy-remix-apis/client";
-import Contained from "~/components/Contained";
-import Layout from "~/components/Layout";
-import type { HelloWorld } from "./api/hello";
+import { Box, Flex } from "@chakra-ui/react";
+import { AppShell, NavItem, Sidebar, SidebarSection } from "@saas-ui/react";
+import brand from "brand";
 
-export default function Index() {
-  const toast = useToast();
+import { ColorModeSwitcher } from "~/components/ColorModeSwitcher";
 
+export default function Page() {
   return (
-    <Layout>
-      <Contained>
-        <Button
-          onClick={async () => {
-            fetchAction<HelloWorld>("/api/hello", { hello: true }).then((res) =>
-              toast({ title: res.message })
-            );
-          }}
+    <AppShell
+      height={"100vh"}
+      navbar={
+        <Flex
+          alignItems={"center"}
+          borderBottomWidth="1px"
+          py="2"
+          px="4"
+          as="header"
         >
-          Try the authentication-aware Hello World API!
-        </Button>
-      </Contained>
-    </Layout>
+          <Box mr={"auto"}>{brand.name}</Box>
+
+          <ColorModeSwitcher />
+        </Flex>
+      }
+      sidebar={
+        <Sidebar>
+          <SidebarSection>
+            <NavItem>Home</NavItem>
+          </SidebarSection>
+        </Sidebar>
+      }
+    >
+      <Box as="main" flex="1" py="2" px="4" overflowY="auto">
+        Your application content
+      </Box>
+    </AppShell>
   );
 }
